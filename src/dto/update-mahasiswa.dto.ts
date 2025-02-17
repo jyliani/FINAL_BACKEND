@@ -15,7 +15,7 @@ export class UpdateMahasiswaDTO {
   @ApiProperty({
     description: 'NIM',
     type: String,
-    example: '105841105022',
+    example: '105841104922',
   })
   @IsString()
   @IsNotEmpty()
@@ -25,7 +25,7 @@ export class UpdateMahasiswaDTO {
   @ApiProperty({
     description: 'Nama',
     type: String,
-    example: 'Azzah Aulia Syarif',
+    example: 'juliani',
   })
   @IsString()
   @IsNotEmpty()
