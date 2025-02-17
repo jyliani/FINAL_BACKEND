@@ -14,8 +14,10 @@ export class User {
   @Expose()
   role: UserRole;
 
-  @Expose()
-  created_at : Date
 
-  
+  @Expose()
+  create_at: Date;
+
+  @Expose()
+  foto_profile : string | null;
 }

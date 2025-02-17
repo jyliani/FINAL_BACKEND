@@ -1,13 +1,17 @@
-import { BadRequestException, HttpException, Injectable, InternalServerErrorException, NotFoundException,} from '@nestjs/common';
+import { BadRequestException, Get, HttpException, Injectable, InternalServerErrorException, NotFoundException, Param, Res, } from '@nestjs/common';
 import { CreateMahasiswaDTO } from './dto/create-mahasiswa.dto';
 import prisma from './prisma';
 import { RegisterUserDTO } from './dto/register-user.dto';
 import { hashSync, compareSync } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { extname, join } from 'path';
+import { UpdateMahasiswaDTO } from './dto/update-mahasiswa.dto';
+import { Response } from 'express';
 
 @Injectable()
 export class AppService {
-  constructor(private readonly jwtSevice: JwtService) {}
+  constructor(private readonly jwtService: JwtService) {}
 
   async login(data: RegisterUserDTO) {
     try {
@@ -28,13 +32,12 @@ export class AppService {
         role: user.role,
       };
 
-      const token = await this.jwtSevice.signAsync(payload);
+      const token = await this.jwtService.signAsync(payload);
 
       return {
         token: token,
         user,
       };
-      
     } catch (err) {
       if (err instanceof HttpException) throw err;
       throw new InternalServerErrorException(

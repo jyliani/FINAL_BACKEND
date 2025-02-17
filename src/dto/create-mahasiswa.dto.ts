@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Jenis_Kelamin } from '@prisma/client';
 import { IsString, IsNotEmpty, Length, IsEnum } from 'class-validator';
 
-
 export class CreateMahasiswaDTO {
   @ApiProperty({
     description: 'NIM',
@@ -51,4 +50,5 @@ export class CreateMahasiswaDTO {
   })
   @IsEnum(Jenis_Kelamin)
   jenis_kelamin: Jenis_Kelamin;
+
 }

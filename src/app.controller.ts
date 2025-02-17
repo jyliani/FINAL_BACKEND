@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Res, UseGuards} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors, UploadedFile, Query, Res, BadRequestException, UseGuards} from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { CreateMahasiswaDTO } from './dto/create-mahasiswa.dto';
 import { UpdateMahasiswaDTO } from './dto/update-mahasiswa.dto';
 import { RegisterUserDTO } from './dto/register-user.dto';
@@ -9,6 +9,7 @@ import { plainToInstance} from 'class-transformer';
 import { User } from './entity/user.entity';
 import { UserDecorator } from './user.decorator';
 import { AuthGuard } from './auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 
 
@@ -27,11 +28,7 @@ export class AppController {
     return this.appService.deleteMahasiswa(nim);
   }
 
-  // @Put('Mahasiswa/:nim')
-  // @ApiBody({ type: UpdateMahasiswaDTO })
-  // editMahasiswa(@Body() { nama }: UpdateMahasiswaDTO) {
-  //   return this.appService.updateMahasiswa(nama);
-  // }
+
   @Put('Mahasiswa/:nim')
   @ApiBody({ type: UpdateMahasiswaDTO })
   editMahasiswa(
